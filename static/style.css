@@ -1,0 +1,31 @@
+#width::before{
+    content: "線の太さ: ";
+}
+
+p{
+    font-size: 16px;
+}
+
+.drawMenu{
+    height: 60px;
+    background: #d5d4ff;
+    border: 1px solid #e2e2e2;
+}
+
+.fas{
+    padding: 10px;
+    
+}
+
+.submitField{
+    background: #a3f8e3;
+    
+    font-weight: 900;
+    color: #ffffff;
+    padding-top: 10px;
+}
+
+.resultField{
+    font-size: 25px;
+    font-weight: 700;
+}

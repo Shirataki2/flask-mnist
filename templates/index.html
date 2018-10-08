@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Flask Test</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./static/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">  </head>
+  <body>
+      <div class="container">
+          <div class="header">
+              <h3 class="text-muted">MNIST WebApp Sample</h3>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 text-center mainField">
+                    <canvas id="mainCanvas" width="500" height="500"></canvas>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 col-md-offset-3 drawMenu text-center" id="draw">
+                    <p><i class="fas fa-pen fa-2x" style="color: white;"></i></p>
+                </div>
+                <div class="col-md-2 drawMenu text-center" id="erase">
+                        <p><i class="fas fa-eraser fa-2x" style="color: white;"></i></p>
+                </div>
+                <div class="col-md-2 drawMenu text-center" id="clear">
+                        <p><i class="fas fa-trash fa-2x" style="color: white;"></i></p>
+                </div>
+                <div class="col-md-6 col-md-offset-3 text-center mainField">
+                    <span id="width">15</span><input type="range" name="線の太さ" class="slider" id="lineWidth" min="1" max="50" step="1" value="15">
+                </div>
+                <div class="col-md-6 col-md-offset-3 text-center submitField predict-btn" >
+                    <p style="font-size: 28px;">Predict!</p>
+                </div>
+                <div class=" col-md-6 col-md-offset-3 text-center resultField">
+                </div>
+            </div>
+            
+        </div>
+        <script src="./static/script.js" ></script>
+  </body>
+</html>
