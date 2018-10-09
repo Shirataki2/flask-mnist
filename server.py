@@ -7,11 +7,12 @@ from io import BytesIO
 from flask_cors import CORS
 import tensorflow as tf
 import cv2
+import os
 import keras
 import cgi
 import numpy as np
 
-
+os.makedirs('archives', exist_ok=True)
 app = Flask(__name__)
 model = keras.models.load_model('./model/model.h5')
 global graph
