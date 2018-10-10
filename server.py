@@ -54,7 +54,8 @@ def mnist():
         result = int(np.argmax(ret))
         print("\tPrediction Result:",result)
 
-        Image.fromarray((img*255).reshape((28,28)).astype(np.uint8)).save('archives/%s.png'%(
+        Image.fromarray((img*255).reshape((28,28)).astype(np.uint8)).save('archives/%d_%s.png'%(
+            result,
             datetime.now().strftime("%Y%m%d%H%M%S"))
             )
         return make_response(jsonify({
@@ -68,4 +69,4 @@ def mnist():
 
 
 if __name__ == "__main__":
-    app.run(debug=False, host='0.0.0.0', port=40000)
+    app.run(debug=True, host='0.0.0.0', port=40000)

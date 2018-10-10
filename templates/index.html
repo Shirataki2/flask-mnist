@@ -22,17 +22,37 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-2 col-md-offset-3 drawMenu text-center" id="draw">
-                    <p><i class="fas fa-pen fa-2x" style="color: white;"></i></p>
+                <div class="text-center mainMenu hidden-draw-tool">
+                    描画ツール<span id="tool-pointer">▲</span>
                 </div>
-                <div class="col-md-2 drawMenu text-center" id="erase">
-                        <p><i class="fas fa-eraser fa-2x" style="color: white;"></i></p>
+                <div id="tool-content" class="Expand">
+                    <div class="col-md-2 col-md-offset-3 drawMenu text-center" id="draw">
+                        <p><i class="fas fa-pen fa-2x" style="color: white;"></i></p>
+                    </div>
+                    <div class="col-md-2 drawMenu text-center" id="erase">
+                            <p><i class="fas fa-eraser fa-2x" style="color: white;"></i></p>
+                    </div>
+                    <div class="col-md-2 drawMenu text-center" id="clear">
+                            <p><i class="fas fa-trash fa-2x" style="color: white;"></i></p>
+                    </div>
+                    <div class="col-md-6 col-md-offset-3 text-center mainMenu">
+                            <span id="width">15</span><input type="range" name="線の太さ" class="slider" id="lineWidth" min="1" max="50" step="1"   value="15">
+                    </div>
+                    <div class="col-md-6 col-md-offset-3 text-center mainMenu">
+                            <span id="transp">255</span><input type="range" name="線の不透明度" class="slider" id="lineTransp" min="0" max="255" step="1"   value="255">
+                    </div>
                 </div>
-                <div class="col-md-2 drawMenu text-center" id="clear">
-                        <p><i class="fas fa-trash fa-2x" style="color: white;"></i></p>
+                <div class="hidden-color-palette text-center mainMenu">
+                    色の選択<span id="palette-pointer">▼</span>
                 </div>
-                <div class="col-md-6 col-md-offset-3 text-center mainMenu">
-                    <span id="width">15</span><input type="range" name="線の太さ" class="slider" id="lineWidth" min="1" max="50" step="1" value="15">
+                <div id="palette-content" class="Close">
+                    <div class="col-md-6 col-md-offset-3 text-center mainMenu">
+                        <span id="color-display" class="color-pick"><i class="fas fa-square"></i></span><span id="curcolor-code" class="color-pick">#000000</span>
+                        <div class="col-md-6 col-md-offset-3 text-center">
+                            <canvas id="palette" width="500" height="350"></canvas>
+                            <input type="range" class="hue" id="hue" min="0" max="360" step="1" value="0">
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-6 col-md-offset-3 text-center submitField predict-btn" >
                     <p style="font-size: 28px;">Predict!</p>
