@@ -1,9 +1,20 @@
 #width::before{
+    font-size: 18px;
     content: "線の太さ: ";
+}
+
+#width{
+    font-size: 18px;
 }
 
 p{
     font-size: 16px;
+}
+
+.mainMenu{
+    background: lightblue;
+    margin-top: 18px !important;
+    padding-bottom: 8px;
 }
 
 .drawMenu{
@@ -18,11 +29,13 @@ p{
 }
 
 .submitField{
-    background: #a3f8e3;
+    background: #ceffb1;
     
     font-weight: 900;
     color: #ffffff;
+    margin-top: 15px;
     padding-top: 10px;
+    padding-bottom: 5px;
 }
 
 .resultField{

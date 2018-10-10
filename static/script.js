@@ -10,15 +10,38 @@
     ctx.fillStyle = "#000000";
     ctx.fillRect(0, 0, 500, 500);
     canvas.addEventListener('mousemove', onMove, false);
+    canvas.addEventListener('touchmove', onMoveMob, false);
     canvas.addEventListener('mousedown', onClick, false);
+    canvas.addEventListener('touchstart', onClickMob, false);
     canvas.addEventListener('mouseup', drawEnd, false);
     canvas.addEventListener('mouseout', drawEnd, false);
+    canvas.addEventListener('touchend', drawEndMob, false);
 
     function onMove(e) {
         if (e.buttons === 1 || e.witch === 1) {
             let rect = e.target.getBoundingClientRect();
             let X = ~~(e.clientX - rect.left);
             let Y = ~~(e.clientY - rect.top);
+            draw(X, Y);
+        }
+    }
+
+    function onMoveMob(e) {
+        if (e.targetTouches.length == 1) {
+            let touch = e.targetTouches[0];
+            let rect = e.target.getBoundingClientRect();
+            let X = ~~(touch.pageX - rect.left);
+            let Y = ~~(touch.pageY - rect.top);
+            draw(X, Y);
+        }
+    }
+
+    function onClickMob(e) {
+        if (e.targetTouches.length == 1) {
+            let touch = e.targetTouches[0];
+            let rect = e.target.getBoundingClientRect();
+            let X = ~~(touch.pageX - rect.left);
+            let Y = ~~(touch.pageY - rect.top);
             draw(X, Y);
         }
     }
