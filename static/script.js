@@ -92,6 +92,7 @@
     let menuIcons = document.getElementsByClassName("drawMenu");
     for (let i = 0; i < menuIcons.length; i++){
         menuIcons[i].addEventListener("click", drawMenu, false);
+        menuIcons[i].addEventListener("touchstart", drawMenu, false);
     }
 
     function drawMenu() {
@@ -122,6 +123,31 @@
     }
 
     $(".predict-btn").on('click', () => {
+        $(".resultField").html('予測中...')
+        let img = toImg();
+        let dic = { img: img };
+        $.ajax({
+            url: "run",
+            type: "POST",
+            data: JSON.stringify(dic),
+            success: function (dic) {
+                console.log(dic)
+            },
+            error: function(e){
+                console.log(e)
+            },
+            contentType: "application/json",
+            dataType: 'json',
+        }).done(function(data) {
+            console.log("Successfully Image Posted");
+            $(".resultField").html(`予測結果:${data['result']}`)
+        }).error(function(data){
+            console.log("Error Occured!");
+            $(".resultField").html('結果の取得に失敗しました...')
+        })
+    });
+
+    $(".predict-btn").on('touchstart', () => {
         $(".resultField").html('予測中...')
         let img = toImg();
         let dic = { img: img };
