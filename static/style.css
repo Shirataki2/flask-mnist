@@ -7,8 +7,25 @@
     font-size: 18px;
 }
 
+@media screen and (max-width: 500px){
+    .col-md-2, .col-md-6{
+        width: 100% !important;
+    }
+    
+    #mainCanvas{
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+}
+
+
 p{
     font-size: 16px;
+}
+
+#mainCanvas{
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 .mainMenu{
@@ -28,7 +45,7 @@ p{
 }
 
 .submitField{
-    background: #ceffb1;
+    background: #ac92ff;
     
     font-weight: 900;
     color: #ffffff;
@@ -40,4 +57,36 @@ p{
 .resultField{
     font-size: 25px;
     font-weight: 700;
+    margin-top: 13px;
+}
+
+.slider[type="range"]{
+    margin-top: 8px;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #c7c7c7;
+    height: 2px;
+}
+
+.slider[type="range"]:focus,
+.slider[type="range"]:active{
+    outline: none;
+}
+
+.slider[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    position: relative;
+    border: 2px solid rgba(255,255,255,.7);
+    width: 20px;
+    height: 20px;
+    display: block;
+    background-color: #262626;
+    border-radius: 50%;
+}
+
+.slider[type="range"]:active::-webkit-slider-thumb{
+    box-shadow: 0 0 0 4px rgba(0, 0, 0, .3);
+    transition: 300ms;
 }

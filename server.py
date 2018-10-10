@@ -46,11 +46,9 @@ def mnist():
     if img_str:
         b64_str = img_str.split(',')[1]
         img = Image.open(BytesIO(a2b_base64(b64_str))).convert('L')
-        img = np.array(img).reshape((500,500))
+        img = np.array(img).reshape((375,375))
         img = cv2.resize(img, (28, 28))
-        print(img.shape)
         img = img.reshape((1, 784)).astype(np.float32)/255.
-        print(img.max())
         with graph.as_default():
             ret = model.predict(img)
         result = int(np.argmax(ret))
