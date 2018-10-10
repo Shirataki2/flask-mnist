@@ -15,7 +15,7 @@
     canvas.addEventListener('touchstart', onClickMob, false);
     canvas.addEventListener('mouseup', drawEnd, false);
     canvas.addEventListener('mouseout', drawEnd, false);
-    canvas.addEventListener('touchend', drawEndMob, false);
+    canvas.addEventListener('touchend', drawEnd, false);
 
     function onMove(e) {
         if (e.buttons === 1 || e.witch === 1) {
