@@ -141,12 +141,24 @@
         return img;
     }
 
+    const getPostUrl = () => {
+        const model = $('input[name=model]:checked').val();
+        if (model === 'DNN') {
+            return "run";
+        } else if (model === 'CNN') {
+            return "run_cnn";
+        }
+    }
+
     $(".predict-btn").on('click', () => {
         $(".resultField").html('予測中...')
-        let img = toImg();
-        let dic = { img: img };
+        const img = toImg();
+        const dic = { img: img };
+        let postUrl = getPostUrl();
+        
+        console.log(postUrl);
         $.ajax({
-            url: "run",
+            url: postUrl,
             type: "POST",
             data: JSON.stringify(dic),
             success: function (dic) {
@@ -182,6 +194,16 @@
 			$("#palette-pointer").html('▲')
 		} else {
 			$("#palette-pointer").html('▼')
+		}
+		open.className = (open.className == 'Close') ? "Expand" : "Close"; 
+    })
+    
+    $(".hidden-model-architecture").on('click', () => {
+		let open = document.getElementById('model-content');
+		if (open.className == 'Close') {
+			$("#model-pointer").html('▲')
+		} else {
+			$("#model-pointer").html('▼')
 		}
 		open.className = (open.className == 'Close') ? "Expand" : "Close"; 
 	})

@@ -23,10 +23,17 @@
                 </div>
             </div>
             <div class="row">
-                <div class="text-center mainMenu hidden-draw-tool">
-                    描画ツール<span id="tool-pointer">▲</span>
+                <div class="col-md-6 col-md-offset-3 text-center submitField predict-btn" >
+                    <p style="font-size: 28px;">Predict!</p>
                 </div>
-                <div id="tool-content" class="Expand">
+                    <div class=" col-md-6 col-md-offset-3 text-center resultField">
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center mainMenu hidden-draw-tool">
+                    描画ツール<span id="tool-pointer">▼</span>
+                </div>
+                <div id="tool-content" class="Close">
                     <div class="col-md-2 col-md-offset-3 drawMenu text-center" id="draw">
                         <p><i class="fas fa-pen fa-2x" style="color: white;"></i></p>
                     </div>
@@ -54,13 +61,25 @@
                         <canvas id="palette" width="500" height="350"></canvas>
                         <input type="range" class="hue" id="hue" min="0" max="360" step="1" value="0">
                     </div>
-                    
                 </div>
-                <div class="col-md-6 col-md-offset-3 text-center submitField predict-btn" >
-                    <p style="font-size: 28px;">Predict!</p>
+                <div class="hidden-model-architecture text-center mainMenu">
+                    モデルの選択<span id="model-pointer">▼</span>
                 </div>
-                <div class=" col-md-6 col-md-offset-3 text-center resultField">
+                <div id="model-content" class="Close">
+                    <div class="col-md-6 col-md-offset-3 text-center mainMenu">
+                        <div class="form-group radio-wrap text-center">
+                            <label class="label-radio">
+                                <input type="radio" name="model" value="DNN" checked="checked"/>
+                                <span class="lever">DNN</span>
+                            </label>
+                            <label class="label-radio">
+                                <input type="radio" name="model" value="CNN" />
+                                <span class="lever">CNN</span>
+                            </label>
+                        </div>
+                    </div>
                 </div>
+                
             </div>
             
         </div>
