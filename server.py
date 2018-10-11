@@ -2,6 +2,7 @@ from flask import Flask, jsonify, make_response
 from flask import request, render_template, abort
 from datetime import datetime
 from PIL import Image
+import glob
 from binascii import a2b_base64
 from io import BytesIO
 from flask_cors import CORS
@@ -18,6 +19,7 @@ model = keras.models.load_model('./model/model.h5')
 cnn = keras.models.load_model('./model/cnn.h5')
 global graph
 graph = tf.get_default_graph()
+files = glob.glob('./static/imgs/*')
 
 @app.after_request
 def after_request(response):
@@ -29,7 +31,6 @@ def after_request(response):
 
 CORS(app)
 
-
 @app.errorhandler(404)
 def notfound(e):
     return "404: Not Found"
@@ -37,8 +38,33 @@ def notfound(e):
 
 @app.route('/')
 def index():
+    print(len(files))
     return render_template("index.html")
 
+@app.route('/change_img', methods=['POST'])
+def change_img():
+    idx = request.json['idx']
+    idx = int(idx)
+    print(idx)
+    return make_response(jsonify({
+            "data": files[idx]
+        }))
+
+@app.route('/dev', methods=['POST'])
+def dev():
+    data = request.json['img']
+    name = request.json['name']
+    os.makedirs('lines', exist_ok=True)
+    img_str = str(data)
+    if img_str:
+        b64_str = img_str.split(',')[1]
+        img = Image.open(BytesIO(a2b_base64(b64_str)))
+        img = np.array(img).reshape((256, 256, 3))
+
+        Image.fromarray(img.astype(np.uint8)).save('lines/%s'%name)
+    return make_response(jsonify({
+        "result": None,
+    }))
 
 @app.route('/run', methods=['POST'])
 def mnist():
@@ -47,7 +73,7 @@ def mnist():
     if img_str:
         b64_str = img_str.split(',')[1]
         img = Image.open(BytesIO(a2b_base64(b64_str))).convert('L')
-        img = np.array(img).reshape((375,375))
+        img = np.array(img).reshape((256, 256))
         img = cv2.resize(img, (28, 28))
         img = img.reshape((1, 784)).astype(np.float32)/255.
         with graph.as_default():
@@ -74,7 +100,7 @@ def mnist_cnn():
     if img_str:
         b64_str = img_str.split(',')[1]
         img = Image.open(BytesIO(a2b_base64(b64_str))).convert('L')
-        img = np.array(img).reshape((375,375))
+        img = np.array(img).reshape((256, 256))
         img = cv2.resize(img, (28, 28))
         img = img.reshape((1, 28, 28, 1)).astype(np.float32)/255.
         with graph.as_default():

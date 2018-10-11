@@ -1,6 +1,14 @@
 html{
     overflow-y: scroll; 
 }
+.caption{
+    margin-bottom: -70px;
+}
+
+#imageNum{
+    position: relative;
+    top: 70px;
+}
 
 #width::before{
     font-size: 18px;
@@ -37,6 +45,12 @@ p{
 }
 
 #mainCanvas{
+    box-shadow: 0px 0px 4px 10px #0000001f;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+#subCanvas{
     box-shadow: 0px 0px 4px 10px #0000001f;
     margin-top: 25px;
     margin-bottom: 25px;
@@ -233,4 +247,13 @@ p{
   border-right: 2px solid #5bc0de;
   border-bottom: 2px solid #5bc0de;
   transform:rotate(40deg);
+}
+
+
+.apply-btn{
+    margin-left: 50px;
+    margin-right: 50px;
+    position: relative;
+    bottom: 150px;
+    font-size: 18px;
 }

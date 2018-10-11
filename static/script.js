@@ -1,15 +1,20 @@
 (function () {
     const canvas = document.getElementById('mainCanvas');
-    const ctx = canvas.getContext("2d");
-	let bgColor = "#000000";
-    let defColor = "#ffffff";
-	let defSize = 15;
+	const sub = document.getElementById('subCanvas');
+	let ready = true;
+	let ctx = canvas.getContext("2d");
+	let sctx = sub.getContext("2d");
+    let idx = -1;
+    let currentImg;
+	let bgColor = "#ffffff";
+    let defColor = "#000000";
+	let defSize = 3;
 	let defAlpha = 1.0;
     let mouseX = "";
     let mouseY = "";
     ctx.beginPath();
     ctx.fillStyle = bgColor;
-    ctx.fillRect(0, 0, 375, 375);
+    ctx.fillRect(0, 0, 256, 256);
     canvas.addEventListener('mousemove', onMove, false);
     canvas.addEventListener('touchmove', onMoveMoba, false);
     canvas.addEventListener('mousedown', onClick, false);
@@ -75,7 +80,21 @@
         ctx.lineWidth = defSize;
 		ctx.strokeStyle = defColor;
 		ctx.globalAlpha = defAlpha;
-        ctx.stroke();
+		ctx.stroke();
+
+		sctx.beginPath();
+        sctx.globalAlpha = 1.0;
+        if (mouseX === "") {
+            sctx.moveTo(X, Y);
+        } else {
+            sctx.moveTo(mouseX, mouseY);
+        }
+        sctx.lineTo(X, Y);
+        sctx.lineCap = "round";
+        sctx.lineWidth = defSize;
+		sctx.strokeStyle = defColor;
+		sctx.globalAlpha = defAlpha;
+        sctx.stroke();
         mouseX = X;
         mouseY = Y;
     }
@@ -121,25 +140,87 @@
         }
         if (this.id.indexOf("clear") + 1) {
             if (confirm("すべて消去してもよろしいですか")) {
-				ctx.globalAlpha = 1.0;
-				ctx.beginPath();
-                ctx.fillStyle = bgColor;
-				ctx.fillRect(0, 0, 375, 375);
-				ctx.globalAlpha = defAlpha;
-                defColor = document.getElementById('color-display').style.color;
+				delCanvas();
             }
         }
-    }
+	}
+	function delCanvas(){
+		sctx.globalAlpha = 1.0;
+		sctx.beginPath();
+        sctx.fillStyle = bgColor;
+		sctx.fillRect(0, 0, 256, 256);
+		sctx.globalAlpha = defAlpha;
+		defColor = document.getElementById('color-display').style.color;
+	}
 
     function toImg(){
         let tmp = document.createElement('canvas');
-        tmp.width = 375;
-        tmp.height = 375;
+        tmp.width = 256;
+        tmp.height = 256;
         let tmpctx = tmp.getContext('2d');
-        tmpctx.drawImage(canvas, 0, 0, 375, 375, 0, 0, 375, 375);
+        tmpctx.drawImage(canvas, 0, 0, 256, 256, 0, 0, 256, 256);
+        let img = tmp.toDataURL('image/jpeg');
+        return img;
+	}
+	
+	function toSubImg(){
+        let tmp = document.createElement('canvas');
+        tmp.width = 256;
+		tmp.height = 256;
+        let tmpctx = tmp.getContext('2d');
+		tmpctx.beginPath();
+    	tmpctx.fillStyle = bgColor;
+    	tmpctx.fillRect(0, 0, 256, 256);
+		tmpctx.drawImage(sub, 0, 0, 256, 256, 0, 0, 256, 256);
         let img = tmp.toDataURL('image/jpeg');
         return img;
     }
+
+    $(".apply-btn").click((e) => {
+        console.log(e);
+        $.ajax({
+            url: "change_img",
+            data: JSON.stringify({ idx: idx }),
+            contentType: "application/json",
+            dataType: 'json',
+            type: 'POST',
+        }).done((data) => {
+			const imgUrl = data['data'].slice(9);
+			if(!ready){
+				
+				const img = toSubImg();
+        		const dic = { img: img, name: imgUrl.split('/')[1] };
+        		let postUrl = "dev"
+        		$.ajax({
+        		    url: postUrl,
+        		    type: "POST",
+        		    data: JSON.stringify(dic),
+        		    success: function (dic) {
+        		        console.log(dic)
+        		    },
+        		    error: function(e){
+        		        console.log(e)
+        		    },
+        		    contentType: "application/json",
+        		    dataType: 'json',
+        		})
+			}
+			ready = false;
+			idx += 1;
+			$("#imageNum").html(idx);
+			delCanvas();
+            currentImg = new Image();
+			currentImg.src = `http://127.0.0.1:8887/${imgUrl}`;
+			currentImg.onload = () => {
+				ctx.drawImage(currentImg, 0, 0);
+			}
+        }).error((e) => {
+            console.log("Error");
+            console.log(e);
+			})
+		
+			
+    })
 
     const getPostUrl = () => {
         const model = $('input[name=model]:checked').val();
