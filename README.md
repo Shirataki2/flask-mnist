@@ -10,7 +10,7 @@ sudo apt -y upgrade
 sudo apt install libopencv-dev python-opencv
 python3 -m venv env
 . env/bin/activate
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 python3 server.py
 ```
 
