@@ -7,7 +7,7 @@ A simple Flask webapp for handwritten digit recognition using a simple deep neur
 ```bash
 sudo apt -y update
 sudo apt -y upgrade
-sudo apt install libopencv-dev python-opencv
+sudo apt install -y libopencv-dev python-opencv
 python3 -m venv env
 . env/bin/activate
 pip3 install -r requirements.txt
