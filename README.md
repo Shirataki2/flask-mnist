@@ -2,6 +2,7 @@
 
 A simple Flask webapp for handwritten digit recognition using a simple deep neural nets.This model was trained on the MNIST dataset.
 
+
 ## Installation
 
 ```bash
